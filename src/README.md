@@ -19,7 +19,7 @@ docker build -t <your-dockerhub-login>/post:1.0 ./post-py
 docker build -t <your-dockerhub-login>/comment:1.0 ./comment
 docker build -t <your-dockerhub-login>/ui:1.0 ./ui
 
-Запускаем
+Запускаемgit 
 docker network create reddit
 docker volume create reddit_db
 docker run -d --network=reddit --network-alias=post_db \
