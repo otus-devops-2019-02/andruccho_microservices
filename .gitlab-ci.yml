@@ -1,6 +1,4 @@
 image: ruby:2.4.2
-tags:
-  - docker
 
 stages:
   - build
@@ -15,11 +13,15 @@ before_script:
   - bundle install 
 
 build_job:
+  tags:
+    - docker
   stage: build
   script:
     - echo 'Building'
 
 test_unit_job:
+  tags:
+    - docker
   stage: test
   services:
     - mongo:latest
@@ -27,11 +29,15 @@ test_unit_job:
     - ruby simpletest.rb
 
 test_integration_job:
+  tags:
+    - docker
   stage: test
   script:
     - echo 'Testing 2'
 
 deploy_job:
+  tags:
+    - docker
   stage: deploy
   script:
     - echo 'Deploy'
