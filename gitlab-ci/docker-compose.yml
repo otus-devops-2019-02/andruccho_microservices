@@ -1,0 +1,33 @@
+version: '2'
+services:
+  runner-shell:
+    image: gitlab/gitlab-runner:latest
+    stdin_open: true
+    volumes:
+    - /2tb/stor/gitlab-runner-shell/config:/etc/gitlab-runner
+    dns:
+    - 10.10.2.1
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: off=true
+  runner-docker:
+    image: gitlab/gitlab-runner:latest
+    stdin_open: true
+    volumes:
+    - /2tb/stor/gitlab-runner-docker/config:/etc/gitlab-runner
+    - /var/run/docker.sock:/var/run/docker.sock
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: off=true
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    volumes:
+    - /2tb/stor/gitlab/config:/etc/gitlab
+    - /2tb/stor/gitlab/logs:/var/log/gitlab
+    - /2tb/stor/gitlab/data:/var/opt/gitlab
+    - /2tb/stor/letsencrypt-rave-cloud/fullchain.pem:/etc/gitlab/ssl/registry.rave.cloud.crt:ro
+    - /2tb/stor/letsencrypt-rave-cloud/privkey.pem:/etc/gitlab/ssl/registry.rave.cloud.key:ro
+    labels:
+      io.rancher.scheduler.affinity:host_label: off=true
